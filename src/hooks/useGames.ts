@@ -15,7 +15,10 @@ const apiClient = new APIClient<Game>("games");
 
 const useGames = (gameQuery: GameQuery) =>
   useQuery<FetchResponse<Game>, Error>({
-    queryKey: ["games", gameQuery],
+    queryKey: [
+      "games",
+      { genre: gameQuery.genre?.id, platform: gameQuery.platform?.id },
+    ],
     queryFn: () =>
       apiClient.getAll({
         params: {
